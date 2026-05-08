@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products</title>
+    <link rel="stylesheet" href="e_ticaret.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">
+        <img src="picture/logo.png" class="logo-img" />
+      </div>
+      <div class="basket">
+        <a class="btn basket-btn">Basket (0)</a>
+      </div>
+    </header>
+    <nav class="menu">
+      <a href="home.html">Home</a>
+      <a href="product.html">Products</a>
+      <a href="about.html">About Us</a>
+    </nav>
+    <main class="product-page-container">
+      <section id="shoes" class="category-section">
+        <h3>Shoes</h3>
+        <div class="product-card">
+          <img src="picture/product1.png" />
+          <h4>Classic Sneakers</h4>
+          <p>$85.00</p>
+          <button
+            class="add-to-cart-btn"
+            data-name="Classic Sneakers"
+            data-price="85"
+          >
+            Add to Cart
+          </button>
+        </div>
+      </section>
+      <section id="bags" class="category-section">
+        <h3>Bags</h3>
+        <div class="product-card">
+          <img src="picture/product2.png" />
+          <h4>Modern Backpack</h4>
+          <p>$45.00</p>
+          <button
+            class="add-to-cart-btn"
+            data-name="Modern Backpack"
+            data-price="45"
+          >
+            Add to Cart
+          </button>
+        </div>
+      </section>
+    </main>
+    <script src="e_ticaret.js"></script>
+  </body>
+</html>

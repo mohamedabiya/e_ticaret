@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="e_ticaret.css" rel="stylesheet" />
+    <title>E-Commerce Site</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">
+        <img class="logo-img" src="picture/logo.png" alt="E-commerce logo" />
+      </div>
+      <div class="search">
+        <form id="category-search-form">
+          <label for="category-input">Category:</label>
+          <input
+            type="text"
+            list="category-list"
+            id="category-input"
+            placeholder="Select..."
+          />
+          <datalist id="category-list">
+            <option value="Clothes"></option>
+            <option value="Devices"></option>
+            <option value="Shoes"></option>
+            <option value="Bags"></option>
+            <option value="Watch & Accessory"></option>
+          </datalist>
+          <button type="submit">Go</button>
+        </form>
+      </div>
+      <div class="lang">
+        <form id="lang-form">
+          <label for="lang-input">Language:</label>
+          <input
+            type="text"
+            list="lang-list"
+            id="lang-input"
+            placeholder="Select Language"
+          />
+          <datalist id="lang-list">
+            <option value="EN"></option>
+            <option value="FR"></option>
+            <option value="AR"></option>
+            <option value="TR"></option>
+          </datalist>
+          <button type="submit">Change</button>
+        </form>
+      </div>
+      <div class="basket">
+        <a href="basket.html" class="btn basket-btn">Basket (0)</a>
+      </div>
+    </header>
+    <nav class="menu">
+      <a href="home.html">Home</a>
+      <a href="product.html">Products</a>
+      <a href="about.html">About us</a>
+    </nav>
+    <article class="home">
+      <section class="hero">
+        <div class="hero-content">
+          <h1>MODERN COLLECTION 2026</h1>
+          <p>
+            Reinvent your style with brand new products. Start exploring now!!
+          </p>
+          <a href="product.html" class="hero-btn">Shop Now</a>
+        </div>
+      </section>
+      <section class="features">
+        <div class="feature-box">
+          <div class="feature-text">
+            <h3>Free Shipping</h3>
+            <p>Orders over $100</p>
+          </div>
+        </div>
+        <div class="feature-box">
+          <div class="feature-text">
+            <h3>Secure Payment</h3>
+            <p>100% secure payment</p>
+          </div>
+        </div>
+        <div class="feature-box">
+          <div class="feature-text">
+            <h3>Easy Returns</h3>
+            <p>30 days return policy</p>
+          </div>
+        </div>
+        <div class="feature-box">
+          <div class="feature-text">
+            <h3>24/7 Support</h3>
+            <p>Dedicated support</p>
+          </div>
+        </div>
+      </section>
+    </article>
+    <script src="e_ticaret.js"></script>
+  </body>
+</html>
