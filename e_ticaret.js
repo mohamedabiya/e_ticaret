@@ -1,5 +1,5 @@
 /* ==================================================
-   1. BASKET (LOCALSTORAGE) YARDIMCI FONKSİYONLARI
+   1. BASKET (LOCALSTORAGE)
 ================================================== */
 function getBasket() {
   return JSON.parse(localStorage.getItem("basket")) || [];
@@ -22,15 +22,24 @@ function updateBasketCount() {
 }
 
 /* ==================================================
-   3. ADD TO CART (EVENT DELEGATION)
+   3. ADD TO CART (LOGIN ZORUNLU ✅)
 ================================================== */
 document.addEventListener("click", function (e) {
   if (e.target.classList.contains("add-to-cart-btn")) {
+
+    const isLoggedIn = localStorage.getItem("loggedIn");
+
+    // ❌ LOGIN YOK → ENGEL + UYARI
+    if (isLoggedIn !== "true") {
+      alert("⚠️ Please log in first to add products!");
+      return;
+    }
+
     const name = e.target.dataset.name;
     const price = parseFloat(e.target.dataset.price);
 
     if (!name || isNaN(price)) {
-      console.error("Product data missing!");
+      alert("Product data missing!");
       return;
     }
 
@@ -49,12 +58,13 @@ document.addEventListener("click", function (e) {
 
     setBasket(basket);
     updateBasketCount();
-    alert(`${name} added to basket!`);
+
+    alert(`✅ ${name} added to basket!`);
   }
 });
 
 /* ==================================================
-   4. BASKET SAYFASINDA GÖSTERME
+   4. BASKET GÖSTER
 ================================================== */
 function displayBasket() {
   const basketList = document.getElementById("basket-list");
@@ -89,11 +99,11 @@ function displayBasket() {
   });
 
   if (subtotalEl) subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
-  if (totalEl) totalEl.textContent = `$${(subtotal + 10).toFixed(2)}`;
+  if (totalEl) totalEl.textContent = `$${(subtotal + (subtotal > 100 ? 0 : 10)).toFixed(2)}`;
 }
 
 /* ==================================================
-   5. SEPETTEN SİLME
+   5. SEPETTEN SIL
 ================================================== */
 document.addEventListener("click", function (e) {
   if (e.target.classList.contains("remove-btn")) {
@@ -107,19 +117,40 @@ document.addEventListener("click", function (e) {
 });
 
 /* ==================================================
-   6. LOGIN FORM
+   6. LOGIN
 ================================================== */
 const loginForm = document.getElementById("loginForm");
+
 if (loginForm) {
   loginForm.addEventListener("submit", function (e) {
     e.preventDefault();
+
+    const emailInput = document.querySelector("input[type='email']");
+    const passwordInput = document.querySelector("input[type='password']");
+
+    if (!emailInput || !passwordInput) {
+      alert("Inputs not found!");
+      return;
+    }
+
+    const email = emailInput.value.trim();
+
+    if (email === "") {
+      alert("Please enter email!");
+      return;
+    }
+
     localStorage.setItem("loggedIn", "true");
+    localStorage.setItem("username", email);
+
+    alert("Login successful ✅");
     window.location.href = "home.html";
   });
 }
 
+
 /* ==================================================
-   7. REGISTER FORM
+   7. REGISTER
 ================================================== */
 const registerForm = document.getElementById("registerForm");
 if (registerForm) {
@@ -140,17 +171,34 @@ if (registerForm) {
 }
 
 /* ==================================================
-   8. CATEGORY SEARCH
+   8. LOGOUT
+================================================== */
+function logout() {
+  localStorage.removeItem("loggedIn");
+  localStorage.removeItem("username");
+
+  alert("Logged out!");
+  window.location.href = "login.html";
+}
+
+// Button bağlama
+const logoutBtn = document.getElementById("logoutBtn");
+
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", logout);
+}
+
+/* ==================================================
+   9. CATEGORY SEARCH
 ================================================== */
 const categoryForm = document.getElementById("category-search-form");
 if (categoryForm) {
   categoryForm.addEventListener("submit", function (e) {
     e.preventDefault();
+
     const value = document
       .getElementById("category-input")
-      .value
-      .toLowerCase()
-      .trim();
+      .value.toLowerCase().trim();
 
     const categoryMap = {
       clothes: "clothes",
@@ -170,12 +218,13 @@ if (categoryForm) {
 }
 
 /* ==================================================
-   9. LANGUAGE FORM (BASIC)
+   10. LANGUAGE
 ================================================== */
 const langForm = document.getElementById("lang-form");
 if (langForm) {
   langForm.addEventListener("submit", function (e) {
     e.preventDefault();
+
     const lang = document.getElementById("lang-input").value.toUpperCase();
 
     if (lang === "EN") {
@@ -183,19 +232,34 @@ if (langForm) {
     } else if (lang === "TR") {
       alert("Türkçe seçildi");
     } else {
-      alert("Language not supported yet!");
+      alert("Language not supported!");
     }
   });
 }
 
+
 /* ==================================================
-   10. PAGE LOAD
+   12. PAGE LOAD + BUTTON KONTROL
 ================================================== */
 document.addEventListener("DOMContentLoaded", function () {
   updateBasketCount();
   displayBasket();
+
+  const isLoggedIn = localStorage.getItem("loggedIn");
+  const buttons = document.querySelectorAll(".add-to-cart-btn");
+
+  // ✅ login yoksa buton zayıf görünür
+  if (isLoggedIn !== "true") {
+    buttons.forEach(btn => {
+      btn.style.opacity = "0.6";
+      btn.title = "Login required";
+    });
+  }
 });
 
+/* ==================================================
+   13. BASKET BUTTON
+================================================== */
 document.addEventListener("click", function (e) {
   if (e.target.classList.contains("basket-btn")) {
     const basket = getBasket();
@@ -207,9 +271,4 @@ document.addEventListener("click", function (e) {
       window.location.href = "basket.html";
     }
   }
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-  updateBasketCount();
-  displayBasket();
 });
