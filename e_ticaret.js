@@ -212,8 +212,6 @@ if (langForm) {
 
     if (lang === "EN") {
       alert("English selected");
-    } else if (lang === "TR") {
-      alert("Türkçe seçildi");
     } else {
       alert("Language not supported!");
     }
