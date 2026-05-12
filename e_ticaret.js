@@ -1,6 +1,4 @@
-/* ==================================================
-   1. BASKET (LOCALSTORAGE)
-================================================== */
+  // BASKET (LOCALSTORAGE)
 function getBasket() {
   return JSON.parse(localStorage.getItem("basket")) || [];
 }
@@ -9,9 +7,7 @@ function setBasket(basket) {
   localStorage.setItem("basket", JSON.stringify(basket));
 }
 
-/* ==================================================
-   2. BASKET SAYACI
-================================================== */
+  // BASKET SAYACI
 function updateBasketCount() {
   const basketBtn = document.querySelector(".basket-btn");
   if (!basketBtn) return;
@@ -21,17 +17,16 @@ function updateBasketCount() {
   basketBtn.textContent = `Basket (${totalItems})`;
 }
 
-/* ==================================================
-   3. ADD TO CART (LOGIN ZORUNLU ✅)
-================================================== */
+  // ADD TO CART (LOGIN ZORUNLU )
 document.addEventListener("click", function (e) {
   if (e.target.classList.contains("add-to-cart-btn")) {
 
     const isLoggedIn = localStorage.getItem("loggedIn");
 
-    // ❌ LOGIN YOK → ENGEL + UYARI
+    // LOGIN YOK → ENGEL + UYARI
     if (isLoggedIn !== "true") {
-      alert("⚠️ Please log in first to add products!");
+      alert(" Please log in first to add products!");
+      window.location.href = "login.html";
       return;
     }
 
@@ -59,13 +54,12 @@ document.addEventListener("click", function (e) {
     setBasket(basket);
     updateBasketCount();
 
-    alert(`✅ ${name} added to basket!`);
+    alert(` ${name} added to basket!`);
   }
 });
 
-/* ==================================================
-   4. BASKET GÖSTER
-================================================== */
+
+  // BASKET GÖSTER
 function displayBasket() {
   const basketList = document.getElementById("basket-list");
   const subtotalEl = document.getElementById("subtotal");
@@ -91,7 +85,7 @@ function displayBasket() {
       <div class="basket-item" data-index="${index}">
         <div>
           <strong>${item.name}</strong>
-          <p>$${item.price.toFixed(2)} × ${item.quantity}</p>
+          <p>$${item.price.toFixed(2)} x ${item.quantity}</p>
         </div>
         <button class="remove-btn">Remove</button>
       </div>
@@ -102,9 +96,7 @@ function displayBasket() {
   if (totalEl) totalEl.textContent = `$${(subtotal + (subtotal > 100 ? 0 : 10)).toFixed(2)}`;
 }
 
-/* ==================================================
-   5. SEPETTEN SIL
-================================================== */
+  //SEPETTEN SIL
 document.addEventListener("click", function (e) {
   if (e.target.classList.contains("remove-btn")) {
     const index = e.target.closest(".basket-item").dataset.index;
@@ -116,9 +108,8 @@ document.addEventListener("click", function (e) {
   }
 });
 
-/* ==================================================
-   6. LOGIN
-================================================== */
+
+  // LOGIN
 const loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
@@ -143,15 +134,13 @@ if (loginForm) {
     localStorage.setItem("loggedIn", "true");
     localStorage.setItem("username", email);
 
-    alert("Login successful ✅");
+    alert("Login successful !");
     window.location.href = "home.html";
   });
 }
 
 
-/* ==================================================
-   7. REGISTER
-================================================== */
+// REGISTER
 const registerForm = document.getElementById("registerForm");
 if (registerForm) {
   registerForm.addEventListener("submit", function (e) {
@@ -170,9 +159,7 @@ if (registerForm) {
   });
 }
 
-/* ==================================================
-   8. LOGOUT
-================================================== */
+// LOGOUT
 function logout() {
   localStorage.removeItem("loggedIn");
   localStorage.removeItem("username");
@@ -188,9 +175,7 @@ if (logoutBtn) {
   logoutBtn.addEventListener("click", logout);
 }
 
-/* ==================================================
-   9. CATEGORY SEARCH
-================================================== */
+// CATEGORY SEARCH
 const categoryForm = document.getElementById("category-search-form");
 if (categoryForm) {
   categoryForm.addEventListener("submit", function (e) {
@@ -217,9 +202,7 @@ if (categoryForm) {
   });
 }
 
-/* ==================================================
-   10. LANGUAGE
-================================================== */
+// LANGUAGE SELECTION
 const langForm = document.getElementById("lang-form");
 if (langForm) {
   langForm.addEventListener("submit", function (e) {
@@ -238,9 +221,7 @@ if (langForm) {
 }
 
 
-/* ==================================================
-   12. PAGE LOAD + BUTTON KONTROL
-================================================== */
+//pahe load + button controls
 document.addEventListener("DOMContentLoaded", function () {
   updateBasketCount();
   displayBasket();
@@ -248,7 +229,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const isLoggedIn = localStorage.getItem("loggedIn");
   const buttons = document.querySelectorAll(".add-to-cart-btn");
 
-  // ✅ login yoksa buton zayıf görünür
+  // login yoksa buton zayıf görünür
   if (isLoggedIn !== "true") {
     buttons.forEach(btn => {
       btn.style.opacity = "0.6";
@@ -257,9 +238,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-/* ==================================================
-   13. BASKET BUTTON
-================================================== */
+// BASKET BUTON KONTROLÜ
 document.addEventListener("click", function (e) {
   if (e.target.classList.contains("basket-btn")) {
     const basket = getBasket();
